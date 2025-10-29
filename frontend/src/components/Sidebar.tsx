@@ -1,16 +1,25 @@
-import { Home, BarChart3, List, Clock, Settings } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Home, BarChart3, List, Clock, Settings, LogOut } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 
 const menuItems = [
   { icon: Home, label: 'Dashboard', path: '/dashboard' },
-  { icon: BarChart3, label: 'Analytics', path: '/analytics' },
   { icon: List, label: 'Marketplace', path: '/marketplace' },
   { icon: Clock, label: 'Requests', path: '/requests' },
-  { icon: Settings, label: 'Setting', path: '/settings' },
 ];
 
 export default function Sidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  const { showToast } = useToast();
+
+  const handleLogout = () => {
+    logout();
+    showToast('Logged out successfully', 'success');
+    navigate('/');
+  };
 
   return (
     <nav className="space-y-2">
@@ -33,6 +42,15 @@ export default function Sidebar() {
           </Link>
         );
       })}
+      
+      {/* Logout Button */}
+      <button
+        onClick={handleLogout}
+        className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors mt-4"
+      >
+        <LogOut size={20} />
+        <span className="text-sm font-medium">Logout</span>
+      </button>
     </nav>
   );
 }
