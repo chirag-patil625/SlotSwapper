@@ -6,6 +6,7 @@ import './index.css'
 import App from './App.tsx'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Dashboard from './pages/Dashboard.tsx';
+import Marketplace from './pages/Marketplace.tsx';
 
 
 const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <Dashboard />,
+  },
+  {
+    path: '/marketplace',
+    element: <Marketplace />, 
   },
 ]);
 createRoot(document.getElementById('root')!).render(
